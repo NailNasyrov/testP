@@ -8,7 +8,6 @@ public class Main {
 
     public static String[] numbersA = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10"};
     public static String[] numbersR = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
-    public static String[] numbersR2 = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX"};
 
     public static void main(String[] args) {
         String row;
@@ -124,12 +123,52 @@ public class Main {
     }
 
     public static String ConvertAToR(int a) {
+        StringBuilder s = new StringBuilder();
+
+        if (a == 100) { s = new StringBuilder("C"); }
+        else if (a >= 90)
+        {
+            s = new StringBuilder("XC" + lessThanTen(a - 90));
+        }
+        else if (a >= 50)
+        {
+            s = new StringBuilder("L");
+            a = a - 50;
+            while (a > 10)
+            {
+                s.append("X");
+                a -= 10;
+            }
+            s.append(lessThanTen(a));
+        }
+        else if (a >= 40)
+        {
+            s = new StringBuilder("XL" + lessThanTen(a - 40));
+        }
+        else if (a > 10)
+        {
+            while (a > 10)
+            {
+                s.append("X");
+                a -= 10;
+            }
+            s.append(lessThanTen(a));
+        }
+        else
+        {
+            s = new StringBuilder(lessThanTen(a));
+        }
+
+        return s.toString();
+    }
+
+    public static String lessThanTen(int a) {
         String res = "";
 
-        for (int i = 0; i < numbersR2.length; ++i) {
+        for (int i = 0; i < numbersR.length; ++i) {
             if ((i + 1) == a) {
                 //нашли, прервем цикл
-                res = numbersR2[i];
+                res = numbersR[i];
                 break;
             }
         }
